@@ -1,9 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { ReactComponent as CopyIcon } from './copy-icon.svg'; // Replace with your copy icon SVG
 import axios from 'axios';
+import logoutImg from './logout.svg'
 const Dashboard = ({ handleLogout, data }) => {
   const [showEarningGraph, setShowEarningGraph] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  
+
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const handleUpload = () => {
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append('profilePicture', selectedFile);
+
+      axios
+        .post('/api/profile/picture', formData)
+        .then((response) => {
+          console.log(response.data);
+          // Handle success, e.g., show a success message or update user data
+        })
+        .catch((error) => {
+          console.error(error);
+          // Handle error, e.g., show an error message
+        });
+    }
+  };
+
   const user = {
     name:data.name,
     email:data.email,
@@ -23,8 +49,7 @@ const Dashboard = ({ handleLogout, data }) => {
 
   const handleReferralCodeClick = () => {
     setShowEarningGraph(true);
-  };
-
+  }
   const handleCopyReferralCode = () => {
     let text = 'http://localhost:3000/reg?refer=' + user.referralCode
     navigator.clipboard.writeText(text);
@@ -33,18 +58,28 @@ const Dashboard = ({ handleLogout, data }) => {
       setIsCopied(false);
     }, 2000);
   };
+  const Edit=()=>{
+    return(
+    <>
+    <div>hello</div>
+    </>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
       <div className="relative py-3 sm:max-w-xl sm:mx-auto">
         <div className="relative w-full mx-auto px-4 py-10 bg-white shadow rounded-3xl sm:p-10">
-        <div className='relative p-3 pt-0 flex-row-reverse '>EDIT</div>
+          <div className='flex justify-end'>
+        <button className='relative  pt-3 ' >EDIT</button>
+        <button className='relative  pt-3 ' onClick={handleLogout}><img src={logoutImg} className=' h-6 bg-red-600 color'/></button>
+        </div>
           <div className="max-w-md mx-auto">
           
             <div className="h-40 w-full relative mb-4">
               <img
                 className="rounded-t-3xl object-cover h-full w-full"
-                src="cover-photo.jpg" // Replace with your cover photo URL
+                src="cover-photo.jpg" // Replace with your cover photo URLS
                 alt="Cover"
               />
               <div className="absolute inset-0 rounded-t-3xl bg-black opacity-50" />
@@ -108,8 +143,7 @@ const Dashboard = ({ handleLogout, data }) => {
                   http://localhost:3000/reg?refer={user.referralCode}
                 </p>
               </div>
-            
-              <button onClick={handleLogout}>Logout</button>
+        
             </div>
           </div>
         </div>

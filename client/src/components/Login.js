@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
 import image from "./png.png"
-const Login = ({onhandleData}) => {
+const Login = ({handleLogin}) => {
   let history = useNavigate();
   const [user, setUser] = useState({
     email: "",
@@ -24,7 +24,8 @@ const Login = ({onhandleData}) => {
         .then(res => {
           console.log(res.data)
           toast.success(res.data.message);
-          onhandleData(res.data.user);
+          const User=res.data.user;
+          handleLogin(User);
           console.log(res.data.user);
           history("/")
         }
