@@ -9,6 +9,7 @@
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
     "chart.js": "^4.2.1",
+    "instamojo-payment-nodejs": "^3.0.0",
     "js-cookie": "^3.0.5",
     "mapbox-gl": "^2.15.0",
     "mdb-react-ui-kit": "^6.2.0",
