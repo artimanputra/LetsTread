@@ -1,6 +1,36 @@
-import React from "react";
+import React, { useEffect } from 'react';
+import axios from 'axios';
 
-export default function Course1() {
+
+export default function Course1({user}) {
+  const handlePayment = async () => {
+    try {
+      const encodedParams = new URLSearchParams();
+      encodedParams.set('allow_repeated_payments', 'true');
+      encodedParams.set('send_email', 'true');
+      encodedParams.set('amount', '5000');
+      encodedParams.set('purpose', 'Course1');
+      encodedParams.set('buyer_name',user.name );
+      const options = {
+        method: 'POST',
+        url: 'https://api.instamojo.com/v2/payment_requests/',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'dda922edbdabc83b78bf29dabd8e248e', // Replace with your access token
+          'content-type': 'application/x-www-form-urlencoded',
+        },
+        data: encodedParams,
+      };
+
+      const response = await axios.request(options);
+      const paymentUrl = response.data.payment_request.longurl;
+
+      // Redirect the user to the payment page
+      window.location.href = paymentUrl;
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const containerStyles = {
     width: "950px",
     height: "300px",
@@ -87,7 +117,7 @@ export default function Course1() {
           </div>
 
           <div className="flex flex-row flex-wrap p-3 pt-6">
-            <button className="bg-[#327E36] hover:bg-[#1E2A55] text-white font-bold py-2 px-4 border-b-4 border-[#327E36] hover:border-[#1E2A55] rounded-xl">
+            <button className="bg-[#327E36] hover:bg-[#1E2A55] text-white font-bold py-2 px-4 border-b-4 border-[#327E36] hover:border-[#1E2A55] rounded-xl" onClick={handlePayment}>
               Buy Now
             </button>
           </div>
