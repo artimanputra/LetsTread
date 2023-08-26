@@ -14,8 +14,6 @@ function createCard(coursep) {
 }
 function Courses() {
   const Container = {
-    width: "950px",
-    height: "450px",
     margin: "0 auto",
     background:
       "linear-gradient(89.93deg, rgba(56, 142, 60, 0) -574.96%, rgba(105, 99, 168, 0.453133) -574.88%, rgba(128, 124, 182, 0.460452) -127.91%, rgba(255, 255, 255, 0.5) 250.37%)",
@@ -26,10 +24,10 @@ function Courses() {
     <>
       <div className="relative inline-flex w-full justify-evenly pt-3 container-card">
         <div className=" flex flex-col justify-center space-y-4 ">
-          <div style={Container}>
-            <div className="flex justify-around ">
+          <div style={Container} className=" w-[100%]  ">
+            <div className="flex justify-around p-8 max-sm:flex-col-reverse ">
               <div className="py-3 pl-10 w-5/6">
-                <p className="py-4 pb-10 text-[#2F2F2F] font-medium text-xl">
+                <p className="py-4 pb-10 text-[#2F2F2F] font-medium text-xl max-sm:text-justify  ">
                   Get Together Finance (GTF) is one of the best share market
                   institute in Jaipur. Currently, the share market education
                   courses are designed to suit learning requirements of the
@@ -43,10 +41,10 @@ function Courses() {
                 </p>
               </div>
 
-              <div class="flex items-center px-3 pr-20">
+              <div class="flex items-center px-3 pr-20 max-sm:p-0">
                 <img
                   src={process.env.PUBLIC_URL + "/Images/image7.png"}
-                  className="rounded-2xl px-4 pr-0"
+                  className="rounded-2xl px-4 pr-0 max-sm:p-0"
                   alt=""
                 />
               </div>

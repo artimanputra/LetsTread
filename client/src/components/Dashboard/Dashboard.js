@@ -72,7 +72,7 @@ const Dashboard = ({ handleLogout, data }) => {
         <div className="relative w-full mx-auto px-4 py-10 bg-white shadow rounded-3xl sm:p-10">
           <div className='flex justify-end'>
         <button className='relative  pt-3 ' >EDIT</button>
-        <button className='relative  pt-3 ' onClick={handleLogout}><img src={logoutImg} className=' h-6 bg-red-600 color'/></button>
+        <button className='relative  pt-3 ' onClick={handleLogout}><img src={logoutImg} className=' h-6 bg-red-600'/></button>
         </div>
           <div className="max-w-md mx-auto">
           

@@ -1,7 +1,7 @@
 import React from "react";
 import ImageSlider from "./ImageSlider";
 import Card from "./Card";
-import courseCard from "./courseCard";
+import CourseCard from "./courseCard"
 import Middle from "./middle";
 import Steps from "./steps";
 import Feedback from "./feedback";
@@ -48,14 +48,6 @@ function Home() {
   };
 
   const titleStyles = {
-    margin: "2rem",
-    height: "fit-content",
-    borderRadius: "nullpx",
-    fontFamily: "Mulish",
-    fontSize: "40px",
-    fontWeight: "700",
-    lineHeight: "65px",
-    letterSpacing: "0em",
     color: "rgba(45, 85, 47, 1)",
   };
 
@@ -67,27 +59,28 @@ function Home() {
     fontSize: "20px",
     lineHeight: "31px",
   };
-
-  return (
-    <>
+return(
+  <>
       <div className="flex flex-wrap justify-evenly">
         <div className="flex flex-col justify-center space-y-4 py-8">
           <div style={containerStyles}>
             <ImageSlider slides={slides} />
           </div>
 
-          <div className="flex flex-col justify-center items-center text-center">
-            <div style={titleStyles}>We offer the following Stock Trading Courses</div>
-            <dl className="flex justify-center flex-wrap">{courseCard.map(createCard)}</dl>
+          <div className=" flex flex-col justify-center items-center">
+          <div style={titleStyles} className="m-8 h-auto rounded-none text-center font-mulish text-4xl font-bold leading-tight tracking-normal text-[rgba(45, 85, 47, 1)]">We offer the following Stock Trading Courses</div>
+            <dl className="justify-center dictionary flex">
+              {CourseCard.map(createCard)}
+            </dl>
           </div>
 
           <div className="flex flex-col items-center text-center">
-            <div style={titleStyles}>WHY YOU SHOULD JOIN LET'S TRADE INDIA?</div>
+            <div  style={titleStyles} className="m-8 h-auto rounded-none font-mulish text-4xl font-bold leading-tight tracking-normal text-[rgba(45, 85, 47, 1)]">WHY YOU SHOULD JOIN LET'S TRADE INDIA?</div>
             <Middle />
           </div>
 
-          <div className="flex flex-col items-center text-center">
-            <div style={titleStyles}>HOW DOES IT WORK?</div>
+          <div className="flex flex-col items-center text-center m-4">
+            <div style={titleStyles} className="m-8 h-auto rounded-none font-mulish text-4xl font-bold leading-tight tracking-normal text-[rgba(45, 85, 47, 1)]">HOW DOES IT WORK?</div>
             <div style={paraStyle}>
               Here are simple steps to start your journey with LTI
             </div>

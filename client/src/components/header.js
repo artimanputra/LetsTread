@@ -32,7 +32,7 @@ const Header = () => {
     <div className=' bg-[#09092c] text-white font-bold py-2 px-4 flex justify-between'>
       <Link to='/'><img src={logo} className=" h-14 ml-3" alt="logo" /></Link>
       <div className='flex justify-center static w-full'>
-        <div className=' m-1 px-20 bg-slate-50 rounded-full text-[#216825] py-2 text-center text-2xl'>{my()}</div>
+        <div className=' m-1 px-20 bg-slate-50 rounded-full text-[#216825] py-2 text-center text-2xl max-sm:px-6'>{my()}</div>
       </div>
     </div>
   )

@@ -39,9 +39,9 @@ function App() {
           <Route path="" element={<Home />} />
           <Route path="dashboard" element={user && user._id ? <Dashboard data={user} /> : <Login handleLogin={handleData} />} />
           <Route path="about" element={<About />} />
-          <Route path="courses" element={<Courses />} />
+          <Route path="courses" element={<Courses data={user} />} />
           <Route path="/Mylearning" element={<MyCoursesPage />} />
-          <Route path="course1" element={<Course1 />} />
+          <Route path="course1" element={<Course1 data={user} />} />
           <Route path="Discussion" element={<DiscussionSection />} />
           <Route path="/reg" element={<RegistrationForm />} />
           <Route path='/tread' element={<StockChart />} />

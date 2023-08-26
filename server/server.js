@@ -99,66 +99,74 @@ function checkFileType(file, cb) {
 }
 
 app.post("/reg", upload, async (req, res) => {
+  try {
     const { name, email, password, phone, city, telegram, state, pincode, refer } = req.body;
 
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-        return res.send("User already exists");
+      return res.status(400).send("User already exists");
     }
 
-    const encriptedPassword = await bcrypt.hash(password, 10);
+    const encryptedPassword = await bcrypt.hash(password, 10);
     const currentDate = new Date().toString();
 
     let referralCode = refer;
     let referredBy = null;
 
     if (referralCode) {
-        const referredByUser = await User.findOne({ referral: referralCode });
+      const referredByUser = await User.findOne({ Myrefer: referralCode });
 
-        if (!referredByUser) {
-            return res.send("Invalid referral code");
-        }
+      if (!referredByUser) {
+        return res.status(400).send("Invalid referral code");
+      }
 
-        referredBy = referredByUser._id;
+      referredBy = referredByUser._id;
     }
 
     const user = new User({
-        name,
-        email,
-        password: encriptedPassword,
-        phone,
-        city,
-        telegram,
-        date: currentDate,
-        state,
-        pincode,
-        referredBy: generateReferralCode(name, city),
-        refer: refer,
-        profileImage: req.file ? req.file.filename : "",
+      name,
+      email,
+      password: encryptedPassword,
+      phone,
+      city,
+      telegram,
+      date: currentDate,
+      state,
+      pincode,
+      referredBy: generateReferralCode(name, city),
+      Myrefer: refer,
+      profileImage: req.file ? req.file.filename : "",
     });
 
     await user.save();
     sendCookie(user, res, `Welcome, ${user.name}`, 201);
+  } catch (error) {
+    console.error("Registration error:", error);
+    res.status(500).send("An error occurred during registration");
+  }
 });
 
-app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+// The login route remains the same
 
-  const userFound = await User.findOne({ email });
-
-  if (userFound) {
-    const passwordMatch = await bcrypt.compare(password, userFound.password);
-
-    if (passwordMatch) {
-      res.send({ message: "Login successful", user: userFound });
-      // sendCookie(userFound, res, `Welcome back, ${userFound.name}`, 200);
-    } else {
-      res.send({ message: "Incorrect password" });
+app.put("/api/profile/picture", (req, res) => {
+  upload(req, res, async (err) => {
+    if (err) {
+      return res.status(400).json({ error: "Error uploading file" });
     }
-  } else {
-    res.send({ message: "User not found" });
-  }
+
+    const userId = req.user._id; // Assuming you have authentication middleware
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    user.profileImage = req.file ? req.file.filename : "";
+    await user.save();
+
+    return res.status(200).json({ message: "Profile picture updated successfully" });
+  });
 });
 
 app.post("/logout", (req, res) => {
