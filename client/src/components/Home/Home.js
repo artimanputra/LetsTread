@@ -4,9 +4,9 @@ import Card from "./Card";
 import CourseCard from "./courseCard"
 import Middle from "./middle";
 import Steps from "./steps";
-import Feedback from "./feedback";
-import customerFeedback from "./customerFeedback";
-import { Fade } from "react-reveal";
+// import Feedback from "./feedback";
+// import customerFeedback from "./customerFeedback";
+// import { Fade } from "react-reveal";
 import img1 from "./image-1.jpg";
 import img2 from "./image-2.jpg";
 import img3 from "./image-3.png";
@@ -23,16 +23,16 @@ function createCard(coursep) {
   );
 }
 
-function custFeedback(custf) {
-  return (
-    <Feedback
-      name={custf.name}
-      star={custf.star}
-      profile={custf.profile}
-      content={custf.content}
-    />
-  );
-}
+// function custFeedback(custf) {
+//   return (
+//     <Feedback
+//       name={custf.name}
+//       star={custf.star}
+//       profile={custf.profile}
+//       content={custf.content}
+//     />
+//   );
+// }
 
 function Home() {
   const slides = [

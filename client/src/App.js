@@ -13,7 +13,7 @@ import MyCoursesPage from "./components/myLearning/MyLearning"
 import Login from "./components/Login";
 import StockChart from "./components/myLearning/Treadcanvas/Treadcanvas";
 import DiscussionSection from "./components/discussion/discussion";
-import CommentSection from "./components/discussion/discussion";
+// import CommentSection from "./components/discussion/discussion";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,13 +31,18 @@ function App() {
     Cookies.set('user', JSON.stringify(data), { expires: 7 });
     setUser(data);
   }
+  const handleLogout = () => {
+    // Remove user data from cookies and state
+    Cookies.remove('user');
+    setUser(null);
+  }
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomeMain />} >
           <Route path="" element={<Home />} />
-          <Route path="dashboard" element={user && user._id ? <Dashboard data={user} /> : <Login handleLogin={handleData} />} />
+          <Route path="dashboard" element={user && user._id ? <Dashboard data={user} handleLogout={handleLogout}/> : <Login handleLogin={handleData} />} />
           <Route path="about" element={<About />} />
           <Route path="courses" element={<Courses data={user} />} />
           <Route path="/Mylearning" element={<MyCoursesPage />} />
